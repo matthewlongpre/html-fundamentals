@@ -46,6 +46,7 @@ class App extends Component {
   }
 
   verifyAnswer = (answer, team) => {
+    if (!answer) return;
     const isCorrect = possibleTags.includes(answer);
     if (isCorrect) {
       const correctAnswers = this.state.correctAnswers;
