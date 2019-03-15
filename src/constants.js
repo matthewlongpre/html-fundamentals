@@ -125,6 +125,7 @@ const possibleTags = [
     "sub",
     "summary",
     "sup",
+    "svg",
     "table",
     "tbody",
     "td",

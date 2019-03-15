@@ -33,7 +33,7 @@ h1 {
 }
 
 .col {
-  flex: 0 0 44%;
+  flex: 0 0 calc(50% - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -160,7 +160,6 @@ input.team-two {
   align-items: center;
   background: rgba(255,255,255,0.9);
   color: red;
-  font-size: 6
-  rem;
+  font-size: 6rem;
 
 }

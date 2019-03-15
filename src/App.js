@@ -126,7 +126,7 @@ class App extends Component {
   render() {
     const { teamOne, teamTwo, correctAnswers, teamOneName, teamTwoName, showIncorrectWarning } = this.state;
 
-    const displayedAnswers = correctAnswers.map(answer => <li><svg fill="#35c735" xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" /></svg>&lt;{answer}&gt;</li>)
+    const displayedAnswers = correctAnswers.map(answer => <li key={answer}><svg fill="#35c735" xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" /></svg>&lt;{answer}&gt;</li>)
 
     return (
       <>
@@ -142,8 +142,8 @@ class App extends Component {
               <figure className="score">
                 {teamOne}
               </figure>
-              <form autocomplete="off" onSubmit={e => this.handleSubmit("teamOne", "teamOneInput", e)}>
-                <input tabIndex="-1" autocomplete="false" name="hidden" type="text" style={{ display: `none` }}></input>
+              <form autoComplete="off" onSubmit={e => this.handleSubmit("teamOne", "teamOneInput", e)}>
+                <input tabIndex="-1" autoComplete="false" name="hidden" type="text" style={{ display: `none` }}></input>
                 <input tabIndex="0" type="text" name="team-one" onChange={e => this.handleChange("teamOneInput", e)} value={this.state.teamOneInput} />
                 <button type="submit">Submit</button>
               </form>
@@ -160,8 +160,8 @@ class App extends Component {
               <figure className="score">
                 {teamTwo}
               </figure>
-              <form autocomplete="off" onSubmit={e => this.handleSubmit("teamTwo", "teamTwoInput", e)}>
-                <input tabIndex="-1" autocomplete="false" name="hidden" type="text" style={{ display: `none` }}></input>
+              <form autoComplete="off" onSubmit={e => this.handleSubmit("teamTwo", "teamTwoInput", e)}>
+                <input tabIndex="-1" autoComplete="false" name="hidden" type="text" style={{ display: `none` }}></input>
                 <input tabIndex="0  " type="text" name="team-two" onChange={e => this.handleChange("teamTwoInput", e)} value={this.state.teamTwoInput} />
                 <button type="submit">Submit</button>
               </form>
