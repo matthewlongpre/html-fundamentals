@@ -3,7 +3,8 @@ import './App.css';
 import possibleTags from "./constants";
 
 class App extends Component {
-  state = {
+
+  initialState = {
     teamOneInput: ``,
     teamTwoInput: ``,
     correctAnswers: [],
@@ -14,7 +15,24 @@ class App extends Component {
     showIncorrectWarning: false
   }
 
+  state = this.initialState;
+
   answerContainer = null;
+
+  inputOne = null;
+  inputTwo = null;
+
+  handleResetClick = () => {
+    if (window.confirm("You sure?")) {
+      this.resetState();
+    }
+  }
+
+  resetState = () => {
+    this.setState({
+      ...this.initialState
+    });
+  }
 
   handleSubmit = (team, field, event) => {
     event.preventDefault();
@@ -62,6 +80,8 @@ class App extends Component {
   componentDidMount() {
     this.hydrateStateWithLocalStorage();
 
+    window.addEventListener("keyup", event => this.listenForEnterKey(event));
+
     // add event listener to save state to localStorage
     // when user leaves/refreshes the page
     window.addEventListener(
@@ -83,6 +103,9 @@ class App extends Component {
 
     // saves if component has a chance to unmount
     this.saveStateToLocalStorage();
+
+    window.removeEventListener("keyup", event => this.listenForEnterKey(event));
+
   }
 
   saveStateToLocalStorage() {
@@ -123,6 +146,17 @@ class App extends Component {
     });
   }
 
+  listenForEnterKey = event => {
+    if (this.state.showIncorrectWarning) {
+      if (event.keyCode === 27) {
+        event.preventDefault();
+        this.setState({
+          showIncorrectWarning: false
+        });
+      }
+    }
+  }
+
   render() {
     const { teamOne, teamTwo, correctAnswers, teamOneName, teamTwoName, showIncorrectWarning } = this.state;
 
@@ -132,6 +166,7 @@ class App extends Component {
       <>
         <header>
           <h1>HTML <span className="fun">Fun</span>damentals</h1>
+          <button className="reset-button" onClick={this.handleResetClick} type="button">Reset</button>
         </header>
 
         <div className="container">
@@ -144,7 +179,7 @@ class App extends Component {
               </figure>
               <form autoComplete="off" onSubmit={e => this.handleSubmit("teamOne", "teamOneInput", e)}>
                 <input tabIndex="-1" autoComplete="false" name="hidden" type="text" style={{ display: `none` }}></input>
-                <input tabIndex="0" type="text" name="team-one" onChange={e => this.handleChange("teamOneInput", e)} value={this.state.teamOneInput} />
+                <input ref={ref => this.inputOne = ref} tabIndex="0" type="text" name="team-one" onChange={e => this.handleChange("teamOneInput", e)} value={this.state.teamOneInput} />
                 <button type="submit">Submit</button>
               </form>
             </div>
@@ -162,7 +197,7 @@ class App extends Component {
               </figure>
               <form autoComplete="off" onSubmit={e => this.handleSubmit("teamTwo", "teamTwoInput", e)}>
                 <input tabIndex="-1" autoComplete="false" name="hidden" type="text" style={{ display: `none` }}></input>
-                <input tabIndex="0  " type="text" name="team-two" onChange={e => this.handleChange("teamTwoInput", e)} value={this.state.teamTwoInput} />
+                <input ref={ref => this.inputTwo = ref} tabIndex="0  " type="text" name="team-two" onChange={e => this.handleChange("teamTwoInput", e)} value={this.state.teamTwoInput} />
                 <button type="submit">Submit</button>
               </form>
             </div>

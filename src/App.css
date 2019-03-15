@@ -161,5 +161,12 @@ input.team-two {
   background: rgba(255,255,255,0.9);
   color: red;
   font-size: 6rem;
+}
 
+.reset-button {
+  position: absolute;
+  right: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 2px 6px;
 }
